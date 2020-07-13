@@ -1,0 +1,135 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "quark.fullname" . }}
+  labels:
+    {{- include "quark.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.shareConfig.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "quark.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "quark.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.shareConfig.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "quark.serviceAccountName" . }}
+      containers:
+        {{- if .Values.customApp.enabled }}
+        - name: {{ .Values.customApp.appName }}
+          {{- if .Values.customApp.securityContext }}
+          securityContext:
+            {{- toYaml .Values.customApp.securityContext | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.customApp.image.repository }}:{{ .Values.customApp.image.tag }}"
+          imagePullPolicy: {{ .Values.customApp.image.pullPolicy }}
+          ports:
+          - name: http
+            protocol: TCP
+            containerPort: {{ .Values.customApp.service.port }}
+          {{- range $index, $port := .Values.customApp.extraPorts }}
+          - name: {{ $port.name }}
+            protocol: TCP
+            containerPort: {{ $port.port }}        
+          {{- end }}
+          env:
+          - name: TZ
+            value: Asia/Shanghai
+          {{- if .Values.customApp.containerEnv }}
+          {{- toYaml .Values.customApp.containerEnv | nindent 12 }}
+          {{- end }}
+          {{- if .Values.customApp.livenessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.customApp.service.port }}     
+            initialDelaySeconds: {{ .Values.customApp.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.customApp.livenessProbe.failureThreshold }}
+            timeoutSeconds: {{ .Values.customApp.livenessProbe.timeoutSeconds }}
+          {{- end }} 
+          {{- if .Values.customApp.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.customApp.service.port }}
+            initialDelaySeconds: {{ .Values.customApp.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.customApp.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.customApp.readinessProbe.timeoutSeconds }}
+          {{- end }} 
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.customApp.extraVolumeMounts }}
+          volumeMounts:
+            {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}
+          {{- end }}
+        {{- end }}
+        {{- if .Values.filebeat.enabled }}
+        - name: {{ .Values.filebeat.appName }}
+          {{- if .Values.filebeat.securityContext }}
+          securityContext:
+            {{- toYaml .Values.filebeat.securityContext | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.filebeat.image.repository }}:{{ .Values.filebeat.image.tag }}"
+          imagePullPolicy: {{ .Values.filebeat.image.pullPolicy }}
+          args:
+          - "-e"
+          - "-E"
+          - "http.enabled=true"
+          {{- if .Values.filebeat.livenessProbe.enabled }}
+          livenessProbe:
+            {{- toYaml .Values.filebeat.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.filebeat.readinessProbe.enabled }}
+          readinessProbe:
+            {{- toYaml .Values.filebeat.readinessProbe | nindent 12 }}
+          {{- end }}
+          env:
+          - name: TZ
+            value: Asia/Shanghai
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          {{- if .Values.filebeat.extraEnvs }}
+            {{ toYaml .Values.filebeat.extraEnvs | nindent 10 }}
+          {{- end }}
+          volumeMounts:
+          {{- range $path, $config := .Values.filebeat.filebeatConfig }}
+          - name: filebeat-config
+            mountPath: /usr/share/filebeat/{{ $path }}
+            readOnly: true
+            subPath: {{ $path }}
+          {{- end }}
+          {{- if .Values.filebeat.extraVolumeMounts }}
+             {{- toYaml .Values.filebeat.extraVolumeMounts | nindent 10 }}
+          {{- end }}
+        {{- end }}
+      volumes:
+      {{- if .Values.filebeat.filebeatConfig }}
+      - name: filebeat-config
+        configMap:
+          defaultMode: 0600
+          name: {{ template "quark.fullname" . }}-config
+      {{- end }}
+      {{- if .Values.shareConfig.extraVolumes }}
+        {{- toYaml .Values.shareConfig.extraVolumes | nindent 6 }}
+      {{- end }}
+      {{- with .Values.shareConfig.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.shareConfig.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.shareConfig.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 6 }}
+    {{- end }}

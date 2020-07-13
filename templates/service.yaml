@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "quark.fullname" . }}
+  labels:
+    {{- include "quark.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.customApp.service.type }}
+  ports:
+    - port: {{ .Values.customApp.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- range $index, $port := .Values.customApp.extraPorts }}
+    - name: {{ $port.name }}
+      port: {{ $port.port }}
+      nodePort: {{ $port.nodePort }}
+      targetPort: {{ $port.port }}
+    {{- end }}
+  selector:
+    {{- include "quark.selectorLabels" . | nindent 4 }}

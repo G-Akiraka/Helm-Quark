@@ -1,0 +1,19 @@
+{{- if .Values.filebeat.enabled }}
+{{- if .Values.filebeat.filebeatConfig }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "quark.fullname" . }}-config
+  labels:
+    app: "{{ template "quark.fullname" . }}"
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+data:
+{{- range $path, $config := .Values.filebeat.filebeatConfig }}
+  {{ $path }}: |
+{{ $config | indent 4 -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}

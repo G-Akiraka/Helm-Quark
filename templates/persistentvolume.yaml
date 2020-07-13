@@ -1,0 +1,17 @@
+{{- if .Values.persistence.enabled -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: {{ .Values.persistence.storageClass }}
+spec:
+    capacity:
+      storage: {{ .Values.persistence.size }}
+    accessModes:
+      - {{ .Values.persistence.accessMode }}
+    volumeMode: {{ .Values.persistence.volumeMode }}
+    persistentVolumeReclaimPolicy: {{ .Values.persistence.reclaimPolicy }}
+    storageClassName: {{ .Values.persistence.storageClass }}
+    nfs:
+      path: {{ .Values.persistence.nfsPath }}
+      server: {{ .Values.persistence.nfsServer }}
+{{ end }}

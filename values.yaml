@@ -1,0 +1,217 @@
+################################
+############ 共享配置 ############
+################################
+shareConfig:
+  # 副本数量
+  replicaCount: 1
+  # 日志共享挂载
+  extraVolumes: {}
+    # - name: akiraka-logs
+    #   emptyDir: {}
+  # 节点选择
+  nodeSelector: {}
+    # type: manager
+  # 容忍节点
+  tolerations: []
+    # - operator: Exists
+  # 亲和性
+  affinity: {}
+  # 私有仓库秘钥
+  imagePullmi: []
+  # 全局名称
+  nameOverride: ""
+  # 全局名称
+  fullnameOverride: ""
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name:
+
+################################
+############ 域名配置 ############
+################################
+ingress:
+  enabled: true
+  certManager: false
+  hostname: tomcat.akiraka.net
+  path: /
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+    # 只在配置了HTTPS之后才会生效进行跳转
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # 强制跳转到https，不论是否配置了https证书
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+  # extraHosts:
+  # - name: tomcat.akiraka.net
+  #   path: /
+  tls: false
+  # extraTls:
+  # - hosts:
+  #   - tomcat.akiraka.net
+  #   secretName: tomcat.akiraka.net
+  secrets: []
+  # - name: tomcat.akiraka.net
+  #   key:
+  #   certificate:
+
+################################
+####### 自动绑定 pvc 与 pv #######
+################################
+persistence:
+  enabled: false
+  size: "8Gi"
+  volumeMode: Filesystem
+  accessMode: ReadWriteOnce
+  storageClass: "aka-nfs"
+  # 回收策略
+  reclaimPolicy: Retain
+  nfsPath: /data/NFS
+  nfsServer: 192.168.6.251
+
+################################
+########### 应用配置 ###########
+################################
+customApp:
+  enabled: ture
+  # 应用名称
+  appName: tomcat
+  image:
+    repository: tomcat
+    tag: 8.5.51
+    pullPolicy: IfNotPresent
+  # svc 设置
+  service:
+    type: ClusterIP
+    port: 8080
+  # 额外端口
+  extraPorts: []
+    # - name: port-1
+    #   port: 2323
+    #   nodePort: 32323
+  # 判断容器是否存活
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    failureThreshold: 6
+    timeoutSeconds: 5
+  # 判断容器是否启动完成
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 20
+    timeoutSeconds: 3
+  # 将日志目录共享给 Filebeat 采集日志
+  extraVolumeMounts: {}
+    # - name: akiraka-logs
+    #   mountPath: /usr/local/tomcat/logs
+    #   readOnly: false
+  # 性能设置
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1024Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
+  # 安全上下文
+  securityContext: {}
+    # runAsUser: 0
+    # privileged: false
+  # 容器环境变量
+  containerEnv: []
+    # - name: http_proxy
+    #   value: "http://192.168.64.1:3128"
+
+################################
+######### Filebeat 配置 #########
+###############################
+filebeat:
+  # 是否启用 filebeat
+  enabled: false
+  # 应用名称
+  appName: filebeat
+  image:
+    repository: elastic/filebeat
+    tag: 7.6.1
+    pullPolicy: IfNotPresent
+  # 自定义 filebeat.yaml 配置
+  filebeatConfig:
+    filebeat.yml: |
+      filebeat.inputs:
+      - type: log
+        paths:
+          - /filebeat/logs/catalina.out
+        fields:
+          app: www
+          type: tomcat-catalina
+        # multiline:
+        #   pattern: '^\['
+        #   negate: true
+        #   match: after
+      output.redis:
+        hosts: ["redis-master.manager.svc.cluster.local"]
+        password: "passw"
+        key: "tomcat"
+        db: 2
+        timeout: 5
+  # 额外环境变量
+  extraEnvs: []
+    # - name: 'ELASTICSEARCH_USERNAME'
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: elastic-credentials
+    #       key: username
+    # - name: 'ELASTICSEARCH_PASSWORD'
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: elastic-credentials
+    #       key: password
+  # 将日志挂载过来方便采集日志
+  extraVolumeMounts: {}
+    # - name: akiraka-logs
+    #   mountPath: /filebeat/logs
+    #   readOnly: true
+  # 性能设置
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "100m"
+      memory: "200Mi"
+  # 安全上下文
+  securityContext:
+    runAsUser: 0
+    privileged: false
+  # 判断容器是否存活
+  livenessProbe:
+    enabled: false
+    exec:
+      command:
+        - sh
+        - -c
+        - |
+          #!/usr/bin/env bash -e
+          curl --fail 127.0.0.1:5066
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+  # 判断容器是否启动完成
+  readinessProbe:
+    enabled: false
+    exec:
+      command:
+        - sh
+        - -c
+        - |
+          #!/usr/bin/env bash -e
+          filebeat test output
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
