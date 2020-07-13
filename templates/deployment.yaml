@@ -40,9 +40,7 @@ spec:
           env:
           - name: TZ
             value: Asia/Shanghai
-          {{- if .Values.customApp.containerEnv }}
-          {{- toYaml .Values.customApp.containerEnv | nindent 10 }}
-          {{- end }}
+          {{- toYaml .Values.customApp.containerEnv | nindent 12 }}
           {{- if .Values.customApp.livenessProbe.enabled }}
           livenessProbe:
             tcpSocket:
