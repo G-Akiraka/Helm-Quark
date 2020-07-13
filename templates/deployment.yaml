@@ -38,6 +38,8 @@ spec:
             containerPort: {{ $port.port }}        
           {{- end }}
           env:
+            - name: TZ
+              value: Asia/Shanghai
           {{- if .Values.customApp.containerEnv }}
           {{- toYaml .Values.customApp.containerEnv | nindent 12 }}
           {{- end }}
