@@ -103,6 +103,8 @@ spec:
           {{- if .Values.filebeat.extraEnvs }}
             {{ toYaml .Values.filebeat.extraEnvs | nindent 10 }}
           {{- end }}
+          resources:
+            {{- toYaml .Values.filebeat.resources | nindent 12 }}
           volumeMounts:
           - name: localtime
             readOnly: true

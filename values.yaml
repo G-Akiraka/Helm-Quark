@@ -178,11 +178,11 @@ filebeat:
   # 性能设置
   resources:
     requests:
-      cpu: 500m
-      memory: 1024Mi
+      cpu: 100m
+      memory: 256Mi
     limits:
-      cpu: "500m"
-      memory: "1024Mi"
+      cpu: 100m
+      memory: 256Mi
   # 安全上下文
   securityContext:
     runAsUser: 0
