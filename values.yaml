@@ -178,8 +178,8 @@ filebeat:
   # 性能设置
   resources:
     requests:
-      cpu: "500m"
-      memory: "1024Mi"
+      cpu: 500m
+      memory: 1024Mi
     # limits:
     #   cpu: "500m"
     #   memory: "1024Mi"
