@@ -61,8 +61,11 @@ spec:
           {{- end }} 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.customApp.extraVolumeMounts }}
           volumeMounts:
+          - name: localtime
+            readOnly: true
+            mountPath: /etc/localtime
+          {{- if .Values.customApp.extraVolumeMounts }}
             {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}
           {{- end }}
         {{- end }}
@@ -101,17 +104,25 @@ spec:
             {{ toYaml .Values.filebeat.extraEnvs | nindent 10 }}
           {{- end }}
           volumeMounts:
+          - name: localtime
+            readOnly: true
+            mountPath: /etc/localtime
+          {{- if .Values.filebeat.enabled }}
           {{- range $path, $config := .Values.filebeat.filebeatConfig }}
           - name: filebeat-config
             mountPath: /usr/share/filebeat/{{ $path }}
             readOnly: true
             subPath: {{ $path }}
           {{- end }}
+          {{- end }}
           {{- if .Values.filebeat.extraVolumeMounts }}
              {{- toYaml .Values.filebeat.extraVolumeMounts | nindent 10 }}
           {{- end }}
         {{- end }}
       volumes:
+      - name: localtime
+        hostPath:
+          path: /etc/localtime
       {{- if .Values.filebeat.filebeatConfig }}
       - name: filebeat-config
         configMap:
