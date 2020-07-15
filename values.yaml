@@ -112,10 +112,10 @@ customApp:
   # 性能设置
   resources:
     requests:
-      cpu: 200m
+      cpu: 500m
       memory: 2048Mi
     limits:
-      cpu: 200m
+      cpu: 500m
       memory: 2048Mi
   # 安全上下文
   securityContext: {}
