@@ -94,18 +94,28 @@ customApp:
     # - name: port-1
     #   port: 2323
     #   nodePort: 32323
-  # 判断容器是否存活
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 30
-    failureThreshold: 6
-    timeoutSeconds: 5
-  # 判断容器是否启动完成
+  # 就绪检查
   readinessProbe:
     enabled: true
-    initialDelaySeconds: 30
-    periodSeconds: 20
+    # 不健康阈值
+    failureThreshold: 3
+    # 延迟探测时间（秒）
+    initialDelaySeconds: 40
+    # 执行探测频率（秒）
+    periodSeconds: 10
+    # 超时时间（秒）
     timeoutSeconds: 3
+  # 存活检查
+  livenessProbe:
+    enabled: true
+    # 不健康阈值
+    failureThreshold: 6
+    # 延迟探测时间（秒）
+    initialDelaySeconds: 30
+    # 执行探测频率（秒）
+    periodSeconds: 60
+    # 超时时间（秒）
+    timeoutSeconds: 5
   # 将日志目录共享给 Filebeat 采集日志
   extraVolumeMounts: {}
     # - name: akiraka-logs
