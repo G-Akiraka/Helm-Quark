@@ -5,9 +5,8 @@
     路径：{{ .Values.ingress.path }}
     全路径：http://{{ .Values.ingress.hostname }}{{ .Values.ingress.path }}
   {{- end }}
-  {{- range $host := .Values.ingress.extraHosts }}
-    {{- range .paths }}
-      - http://{{ $host.name }}{{ . }}
-    {{- end }}
+  {{- range $index, $host := .Values.ingress.extraHosts }}
+    name: {{ $host.name }}
+    port: {{ $path.port }}
   {{- end }}
 {{- end }}
