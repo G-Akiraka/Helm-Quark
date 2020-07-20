@@ -96,13 +96,13 @@ customApp:
     #   nodePort: 32323
   # 判断容器是否存活
   livenessProbe:
-    enabled: false
+    enabled: true
     initialDelaySeconds: 30
     failureThreshold: 6
     timeoutSeconds: 5
   # 判断容器是否启动完成
   readinessProbe:
-    enabled: false
+    enabled: true
     initialDelaySeconds: 30
     periodSeconds: 20
     timeoutSeconds: 3
