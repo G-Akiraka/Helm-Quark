@@ -7,6 +7,6 @@
   {{- end }}
   {{- range $index, $host := .Values.ingress.extraHosts }}
     name: {{ $host.name }}
-    port: {{ $path.port }}
+    port: {{ $host.port }}
   {{- end }}
 {{- end }}
