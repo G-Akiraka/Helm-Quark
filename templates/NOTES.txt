@@ -1,7 +1,7 @@
-1. Get the Quark URL by running:
+1. 以下是访问地址:
 {{- if .Values.ingress.enabled }}
   {{- if .Values.ingress.hostname }}
-    Quark URL(s): http://{{ .Values.ingress.hostname }}
+    域名: http://{{ .Values.ingress.hostname }}/{{ .Values.ingress.path }}
   {{- end }}
   {{- range $host := .Values.ingress.hosts }}
     {{- range .paths }}
