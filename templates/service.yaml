@@ -11,6 +11,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      nodePort: {{ .Values.customApp.service.nodePort }}
     {{- range $index, $port := .Values.customApp.extraPorts }}
     - name: {{ $port.name }}
       port: {{ $port.port }}
