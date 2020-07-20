@@ -7,8 +7,8 @@
   {{- end }}
 2. 额外访问地址:
   {{- range $host := .Values.ingress.extraHosts }}
-    域名: {{ $host.name }}
+    域名: http://{{ $host.name }}
     路径： {{ $host.path }}
-    全路径：{{ $host.name }}{{ $host.path }}
+    全路径：http://{{ $host.name }}{{ $host.path }}
   {{- end }}
 {{- end }}
