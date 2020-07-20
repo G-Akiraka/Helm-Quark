@@ -1,7 +1,9 @@
 1. 以下是访问地址:
 {{- if .Values.ingress.enabled }}
   {{- if .Values.ingress.hostname }}
-    域名: http://{{ .Values.ingress.hostname }}{{ .Values.ingress.path }}
+    域名: http://{{ .Values.ingress.hostname }}
+    路径：{{ .Values.ingress.path }}
+    全路径：http://{{ .Values.ingress.hostname }}{{ .Values.ingress.path }}
   {{- end }}
   {{- range $host := .Values.ingress.extraHosts }}
     {{- range .paths }}
