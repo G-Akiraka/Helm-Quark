@@ -1,12 +1,14 @@
-1. 以下是访问地址:
+1. 主访问地址:
 {{- if .Values.ingress.enabled }}
   {{- if .Values.ingress.hostname }}
     域名: http://{{ .Values.ingress.hostname }}
     路径：{{ .Values.ingress.path }}
     全路径：http://{{ .Values.ingress.hostname }}{{ .Values.ingress.path }}
   {{- end }}
-  {{- range $index, $host := .Values.ingress.extraHosts }}
-    name: {{ $host.name }}
-    port: {{ $host.port }}
+2. 额外访问地址:
+  {{- range $host := .Values.ingress.extraHosts }}
+    域名: {{ $host.name }}
+    路径： {{ $host.path }}
+    全路径：{{ $host.name }}{{ $host.path }}
   {{- end }}
 {{- end }}
