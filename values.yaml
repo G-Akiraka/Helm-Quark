@@ -30,6 +30,10 @@ shareConfig:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     name: {}
+  # 部署策略，默认滚动更新，开启重新部署
+  strategy:
+    enable: false
+    type: Recreate
 
 ################################
 ############ 域名配置 ############

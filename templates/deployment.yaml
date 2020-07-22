@@ -9,6 +9,10 @@ spec:
   selector:
     matchLabels:
       {{- include "quark.selectorLabels" . | nindent 6 }}
+  {{- if .Values.shareConfig.enabled }}
+  strategy:
+    type: Recreate
+  {{- end }}
   template:
     metadata:
       labels:
