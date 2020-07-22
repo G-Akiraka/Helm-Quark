@@ -69,7 +69,7 @@ spec:
           - name: localtime
             readOnly: true
             mountPath: /etc/localtime
-          {{- if .Values.customApp.customAppConfig.enabled }}
+          {{- if .Values.customApp.configEnabled }}
           {{- range $path, $config := .Values.customApp.customAppConfig }}
           - name: customApp-config
             mountPath: /etc/nginx/conf.d{{ $path }}
@@ -135,7 +135,7 @@ spec:
       - name: localtime
         hostPath:
           path: /etc/localtime
-      {{- if .Values.customApp.customAppConfig.enabled }}
+      {{- if .Values.customApp.configEnabled }}
       - name: customApp-config
         configMap:
           defaultMode: 0600

@@ -1,4 +1,4 @@
-{{- if .Values.customApp.customAppConfig.enabled }}
+{{- if .Values.customApp.configEnabled }}
 {{- if .Values.customApp.customAppConfig }}
 ---
 apiVersion: v1

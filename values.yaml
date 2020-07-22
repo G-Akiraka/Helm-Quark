@@ -142,8 +142,8 @@ customApp:
     # - name: http_proxy
     #   value: "http://192.168.64.1:3128"
   # 自定义 filebeat.yaml 配置
+  configEnabled: false
   customAppConfig:
-    enabled: false
     # name: default.conf
     # path: /etc/nginx/conf.d
     default.conf: |
