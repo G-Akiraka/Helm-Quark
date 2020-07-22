@@ -71,7 +71,7 @@ spec:
             mountPath: /etc/localtime
           {{- if .Values.customApp.configEnabled }}
           {{- range $path, $config := .Values.customApp.customAppConfig }}
-          - name: customApp-config
+          - name: customapp-config
             mountPath: /etc/nginx/conf.d/{{ $path }}
             readOnly: true
             subPath: {{ $path }}
@@ -136,7 +136,7 @@ spec:
         hostPath:
           path: /etc/localtime
       {{- if .Values.customApp.configEnabled }}
-      - name: customApp-config
+      - name: customapp-config
         configMap:
           defaultMode: 0600
           name: {{ template "quark.fullname" . }}-customapp-config
