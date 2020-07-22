@@ -70,9 +70,12 @@ spec:
             readOnly: true
             mountPath: /etc/localtime
           {{- if .Values.customApp.customAppConfig.enabled }}
-          - name: {{ .Values.customApp.customAppConfig.name }}
-            mountPath: {{ .Values.customApp.customAppConfig.path }}
+          {{- range $path, $config := .Values.customApp.customAppConfig }}
+          - name: customApp-config
+            mountPath: /etc/nginx/conf.d{{ $path }}
             readOnly: true
+            subPath: {{ $path }}
+          {{- end }}
           {{- end }}
           {{- if .Values.customApp.extraVolumeMounts }}
             {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}
