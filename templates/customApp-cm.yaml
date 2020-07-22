@@ -1,4 +1,5 @@
 {{- if .Values.customApp.customAppConfig.enabled }}
+{{- if .Values.customApp.customAppConfig }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -13,5 +14,6 @@ data:
 {{- range $path, $config := .Values.customApp.customAppConfig }}
   {{ $path }}: |
 {{ $config | indent 4 -}}
+{{- end -}}
 {{- end -}}
 {{- end -}}
