@@ -72,7 +72,7 @@ spec:
           {{- if .Values.customApp.configEnabled }}
           {{- range $path, $config := .Values.customApp.customAppConfig }}
           - name: customApp-config
-            mountPath: /etc/nginx/conf.d{{ $path }}
+            mountPath: /etc/nginx/conf.d/{{ $path }}
             readOnly: true
             subPath: {{ $path }}
           {{- end }}
