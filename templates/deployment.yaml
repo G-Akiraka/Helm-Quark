@@ -69,6 +69,11 @@ spec:
           - name: localtime
             readOnly: true
             mountPath: /etc/localtime
+          {{- if .Values.customApp.customAppConfig.enabled }}
+          - name: {{ .Values.customApp.customAppConfig.name }}
+            mountPath: {{ .Values.customApp.customAppConfig.path }}
+            readOnly: true
+          {{- end }}
           {{- if .Values.customApp.extraVolumeMounts }}
             {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}
           {{- end }}
@@ -127,12 +132,16 @@ spec:
       - name: localtime
         hostPath:
           path: /etc/localtime
+      {{- if .Values.customApp.customAppConfig.enabled }}
+      - name: customApp-config
+        configMap:
+          defaultMode: 0600
+          name: {{ template "quark.fullname" . }}-customApp-config
       {{- if .Values.filebeat.enabled }}
-      {{- if .Values.filebeat.filebeatConfig }}
       - name: filebeat-config
         configMap:
           defaultMode: 0600
-          name: {{ template "quark.fullname" . }}-config
+          name: {{ template "quark.fullname" . }}-filebeat-config
       {{- end }}
       {{- end }}
       {{- if .Values.shareConfig.extraVolumes }}
