@@ -51,6 +51,9 @@ ingress:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
     # 是否启用正则表达式
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "32k"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "10m"
   # extraHosts:
   # - name: tomcat.akiraka.net
   #   path: /
