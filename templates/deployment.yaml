@@ -63,8 +63,10 @@ spec:
             periodSeconds: {{ .Values.customApp.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.customApp.readinessProbe.timeoutSeconds }}
           {{- end }} 
+          {{- if .Values.customApp.resourcesSwitch }}
           resources:
             {{- toYaml .Values.customApp.resources | nindent 12 }}
+          {{- end }} 
           volumeMounts:
           - name: localtime
             readOnly: true
