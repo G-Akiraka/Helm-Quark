@@ -128,6 +128,8 @@ customApp:
     # - name: akiraka-logs
     #   mountPath: /usr/local/tomcat/logs
     #   readOnly: false
+  # 性能设置是否启用
+  resourcesSwitch: false
   # 性能设置
   resources:
     requests:
