@@ -5,7 +5,11 @@ metadata:
   labels:
     {{- include "quark.labels" . | nindent 4 }}
 spec:
+  {{- if .Values.customApp.dubboPort.enabled }}
+  type: NodePort
+  {{- else }}
   type: {{ .Values.customApp.service.type }}
+  {{- end }}
   {{- if .Values.customApp.service.externalIPs }}
   externalIPs:
   {{ toYaml .Values.customApp.service.externalIPs | indent 4 }}
@@ -16,6 +20,12 @@ spec:
       port: {{ .Values.customApp.service.port }}
       targetPort: {{ .Values.customApp.service.port }}
       nodePort: {{ .Values.customApp.service.nodePort }}
+    {{- if .Values.customApp.dubboPort.enabled }}
+    - name: dubbo
+      port: {{ .Values.customApp.dubboPort.port }}
+      nodePort: {{ .Values.customApp.dubboPort.port }}
+      targetPort: {{ .Values.customApp.dubboPort.port }}
+    {{- end }}
     {{- range $index, $port := .Values.customApp.extraPorts }}
     - name: {{ $port.name }}
       port: {{ $port.port }}

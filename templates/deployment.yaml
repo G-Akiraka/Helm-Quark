@@ -36,6 +36,11 @@ spec:
           - name: http
             protocol: TCP
             containerPort: {{ .Values.customApp.service.port }}
+          {{- if .Values.customApp.dubboPort.enabled }}
+          - name: dubbo
+            protocol: TCP
+            containerPort: {{ .Values.customApp.dubboPort.port }}
+          {{- end }}
           {{- range $index, $port := .Values.customApp.extraPorts }}
           - name: {{ $port.name }}
             protocol: TCP

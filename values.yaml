@@ -102,6 +102,10 @@ customApp:
     # - name: port-1
     #   port: 2323
     #   nodePort: 32323
+  # 提供注册中心不同端口号
+  dubboPort:
+    enabled: false
+    port: 20880
   # 就绪检查
   readinessProbe:
     enabled: true
