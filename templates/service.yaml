@@ -7,10 +7,10 @@ metadata:
 spec:
   type: {{ .Values.customApp.service.type }}
   ports:
-    - port: {{ .Values.customApp.service.port }}
-      targetPort: http
+    - name: http
       protocol: TCP
-      name: http
+      port: {{ .Values.customApp.service.port }}
+      targetPort: {{ .Values.customApp.service.port }}
       nodePort: {{ .Values.customApp.service.nodePort }}
     {{- range $index, $port := .Values.customApp.extraPorts }}
     - name: {{ $port.name }}
