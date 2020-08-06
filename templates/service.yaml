@@ -6,6 +6,9 @@ metadata:
     {{- include "quark.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.customApp.service.type }}
+  {{- with .Values.customApp.service.clusterIP }}
+  clusterIP: {{ if eq "-" . }}""{{ else }}{{ . | quote }}{{ end }}
+  {{- end }}
   ports:
     - name: http
       protocol: TCP
