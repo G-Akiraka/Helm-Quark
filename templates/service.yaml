@@ -6,9 +6,9 @@ metadata:
     {{- include "quark.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.customApp.service.type }}
-  {{- if .Values.controller.service.externalIPs }}
+  {{- if .Values.customApp.service.externalIPs }}
   externalIPs:
-  {{ toYaml .Values.controller.service.externalIPs | indent 4 }}
+  {{ toYaml .Values.customApp.service.externalIPs | indent 4 }}
   {{- end }}
   ports:
     - name: http
