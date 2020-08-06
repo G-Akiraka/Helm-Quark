@@ -96,7 +96,7 @@ customApp:
   service:
     type: ClusterIP
     port: 8080
-    # clusterIP: ""
+    # externalIPs: ""
   # 额外端口
   extraPorts: []
     # - name: port-1
