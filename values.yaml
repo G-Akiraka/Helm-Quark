@@ -93,7 +93,7 @@ customApp:
   image:
     repository: tomcat
     tag: 8.5.51
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   # svc 设置
   service:
     type: ClusterIP
