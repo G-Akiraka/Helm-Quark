@@ -11,7 +11,7 @@ metadata:
     {{- if .Values.ingress.annotations }}
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- end }}
-    {{- if .Values.ingress.rewriteTarget }}
+    {{- if .Values.ingress.rewriteSwitch }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     {{- end }}
 spec:
