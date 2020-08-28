@@ -44,7 +44,7 @@ ingress:
   hostname: tomcat.akiraka.net
   path: /
   # 重定向开启 默认 /$1
-  rewriteTarget: false
+  rewriteSwitch: false
   annotations:
     kubernetes.io/ingress.allow-http: "true"
     # 只在配置了HTTPS之后才会生效进行跳转
