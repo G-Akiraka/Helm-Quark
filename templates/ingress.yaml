@@ -37,6 +37,12 @@ spec:
           backend:
             servicePort: http
             serviceName: {{ template "quark.fullname" $ }}
+        {{- range .Values.ingress.extraPath }}
+        - path: {{ default "/" .path }}
+          backend:
+            servicePort: http
+            serviceName: {{ template "quark.fullname" $ }}
+        {{- end }}
     {{- end }}
   {{- if or .Values.ingress.tls .Values.ingress.extraTls }}
   tls:
