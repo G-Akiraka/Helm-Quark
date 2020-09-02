@@ -28,7 +28,7 @@ spec:
           host: {{ .name }}
           backend:
             servicePort: http
-            serviceName: {{ template "quark.fullname" . }}
+            serviceName: asdasd
         {{- end }}
     {{- range .Values.ingress.extraHosts }}
     - host: {{ .name }}
