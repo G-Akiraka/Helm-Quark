@@ -29,14 +29,10 @@ spec:
             servicePort: http
             serviceName: {{ template "quark.fullname" $ }}
         {{- end }}
-    {{- range .Values.ingress.extraHosts and range .Values.ingress.extraPath }}
+    {{- range .Values.ingress.extraHosts}}
     - host: {{ .name }}
       http:
         paths:
-        - path: {{ default "/" .path }}
-          backend:
-            servicePort: http
-            serviceName: {{ template "quark.fullname" $ }}
         - path: {{ default "/" .path }}
           backend:
             servicePort: http
