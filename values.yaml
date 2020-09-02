@@ -41,7 +41,9 @@ shareConfig:
 ingress:
   enabled: true
   certManager: false
+  # 访问域名
   hostname: tomcat.akiraka.net
+  # 访问路径
   path: /
   # 额外访问路径
   extraPath: []
