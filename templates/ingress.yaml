@@ -21,13 +21,13 @@ spec:
         paths:
         - path: {{ .Values.ingress.path }}
           backend:
-            serviceName: {{ template "quark.fullname" . }}
             servicePort: http
+            serviceName: {{ template "quark.fullname" . }}
         {{- range .Values.ingress.extraPath }}
-        - path: {{ .path }}
+        - path: {{ default "/" .path }}
           backend:
-            serviceName: {{ template "quark.fullname" . }}
             servicePort: http
+            serviceName: {{ template "quark.fullname" . }}
         {{- end }}
     {{- range .Values.ingress.extraHosts }}
     - host: {{ .name }}
@@ -35,8 +35,8 @@ spec:
         paths:
         - path: {{ default "/" .path }}
           backend:
-            serviceName: {{ template "quark.fullname" $ }}
             servicePort: http
+            serviceName: {{ template "quark.fullname" $ }}
     {{- end }}
   {{- if or .Values.ingress.tls .Values.ingress.extraTls }}
   tls:
