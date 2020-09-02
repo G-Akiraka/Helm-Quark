@@ -23,13 +23,10 @@ spec:
           backend:
             servicePort: http
             serviceName: {{ template "quark.fullname" . }}
-        {{- range .Values.ingress.extraPath }}
         - path: {{ default "/" .path }}
-          host: {{ .name }}
           backend:
             servicePort: http
             serviceName: {{ template "quark.fullname" . }}
-        {{- end }}
     {{- range .Values.ingress.extraHosts }}
     - host: {{ .name }}
       http:
