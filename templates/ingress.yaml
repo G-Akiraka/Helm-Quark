@@ -23,8 +23,8 @@ spec:
           backend:
             serviceName: {{ template "quark.fullname" . }}
             servicePort: http
-        {{- range $index, $path := .Values.ingress.extraPath }}
-        - path: {{ $path.path }}
+        {{- range .Values.ingress.extraPath }}
+        - path: {{ .path }}
           backend:
             serviceName: {{ template "quark.fullname" . }}
             servicePort: http

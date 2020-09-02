@@ -43,6 +43,9 @@ ingress:
   certManager: false
   hostname: tomcat.akiraka.net
   path: /
+  # 额外访问路径
+  extraPath: []
+    # path: /
   # 重定向开启 默认 /$1
   rewriteSwitch: false
   annotations:
