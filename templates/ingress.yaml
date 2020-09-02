@@ -25,7 +25,6 @@ spec:
             serviceName: {{ template "quark.fullname" . }}
         {{- range .Values.ingress.extraPath }}
         - path: {{ default "/" .path }}
-          host: {{ .name }}
           backend:
             servicePort: http
             serviceName: asdasd
