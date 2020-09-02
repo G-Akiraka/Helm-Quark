@@ -114,7 +114,7 @@ customApp:
     # 不健康阈值
     failureThreshold: 3
     # 延迟探测时间（秒）
-    initialDelaySeconds: 40
+    initialDelaySeconds: 30
     # 执行探测频率（秒）
     periodSeconds: 10
     # 超时时间（秒）
