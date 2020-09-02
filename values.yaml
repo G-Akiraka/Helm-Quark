@@ -43,9 +43,6 @@ ingress:
   certManager: false
   hostname: tomcat.akiraka.net
   path: /
-  # 额外路径，多路由地址使用这个
-  extraPorts: []
-    # path: /xxx
   # 重定向开启 默认 /$1
   rewriteSwitch: false
   annotations:
@@ -117,7 +114,7 @@ customApp:
     # 不健康阈值
     failureThreshold: 3
     # 延迟探测时间（秒）
-    initialDelaySeconds: 30
+    initialDelaySeconds: 40
     # 执行探测频率（秒）
     periodSeconds: 10
     # 超时时间（秒）
