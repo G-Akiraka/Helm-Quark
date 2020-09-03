@@ -50,6 +50,7 @@ ingress:
     # path: /
   # 重定向开启 默认 /$1
   rewriteSwitch: false
+  rewritePath: /$1
   annotations:
     kubernetes.io/ingress.allow-http: "true"
     # 只在配置了HTTPS之后才会生效进行跳转
