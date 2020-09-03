@@ -48,8 +48,12 @@ ingress:
   # 额外访问路径
   extraPath: []
     # path: /
-  # 重定向开启 默认 /$1
+  # 重写开启 默认 /$1
   rewriteTarget: false
+  # 重写片段
+  rewriteSnippet: false
+  # 规则自己定义，下面这个是示范
+  snippetRule: rewrite /service/(.*)  /$1 break;
   # 注解
   annotations:
     kubernetes.io/ingress.allow-http: "true"
