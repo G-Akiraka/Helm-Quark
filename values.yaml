@@ -50,9 +50,9 @@ ingress:
     # path: /
   # 重写开启 默认 /$1
   rewriteTarget: false
-  # 重写片段
+  # 重写片段 默认关闭 规则下面配置
   rewriteSnippet: false
-  # 规则自己定义，下面这个是示范
+  # 片段规则自己定义，下面这个是示范
   snippetRule: rewrite /service/(.*)  /$1 break;
   # 注解
   annotations:
