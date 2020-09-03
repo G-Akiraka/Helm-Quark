@@ -49,8 +49,7 @@ ingress:
   extraPath: []
     # path: /
   # 重定向开启 默认 /$1
-  rewriteSwitch: false
-  rewritePath: /$1
+  rewriteTarget: false
   # 注解
   annotations:
     kubernetes.io/ingress.allow-http: "true"
