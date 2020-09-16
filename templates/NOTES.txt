@@ -5,8 +5,8 @@
     路径：{{ .Values.ingress.path }}
     全路径：http://{{ .Values.ingress.hostname }}{{ .Values.ingress.path }}
   {{- end }}
-2. 额外访问地址:
   {{- range $host := .Values.ingress.extraHosts }}
+2. 额外访问地址:
     域名: http://{{ $host.name }}
     路径： {{ $host.path }}
     全路径：http://{{ $host.name }}{{ $host.path }}
