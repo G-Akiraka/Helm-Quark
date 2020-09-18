@@ -148,7 +148,7 @@ customApp:
   # 性能设置是否启用
   resourcesSwitch: false
   # args 配置
-  args: []
+  extraArgs: {}
   # 性能设置
   resources:
     requests:
