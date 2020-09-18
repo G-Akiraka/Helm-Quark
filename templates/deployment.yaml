@@ -32,8 +32,8 @@ spec:
           {{- end }}
           image: "{{ .Values.customApp.image.repository }}:{{ .Values.customApp.image.tag }}"
           imagePullPolicy: {{ .Values.customApp.image.pullPolicy }}
-          args:
           {{- range $key, $value := .Values.customApp.extraArgs }}
+          args:
             - --{{ $key }}={{ $value }}
           {{- end }}
           ports:
