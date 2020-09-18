@@ -147,6 +147,8 @@ customApp:
     #   readOnly: false
   # 性能设置是否启用
   resourcesSwitch: false
+  # args 配置
+  args: []
   # 性能设置
   resources:
     requests:

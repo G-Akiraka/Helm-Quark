@@ -32,6 +32,8 @@ spec:
           {{- end }}
           image: "{{ .Values.customApp.image.repository }}:{{ .Values.customApp.image.tag }}"
           imagePullPolicy: {{ .Values.customApp.image.pullPolicy }}
+          args:
+            {{- toYaml .Values.customApp.args | nindent 12 }}
           ports:
           - name: http
             protocol: TCP
