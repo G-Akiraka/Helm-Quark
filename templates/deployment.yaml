@@ -33,7 +33,7 @@ spec:
           image: "{{ .Values.customApp.image.repository }}:{{ .Values.customApp.image.tag }}"
           imagePullPolicy: {{ .Values.customApp.image.pullPolicy }}
           args:
-          {{- range $key, $value := .Values.extraArgs }}
+          {{- range $key, $value := .Values.customApp.extraArgs }}
             - --{{ $key }}={{ $value }}
           {{- end }}
           ports:
