@@ -81,12 +81,11 @@ spec:
             readOnly: true
             mountPath: /etc/localtime
           {{- if .Values.customApp.configEnabled }}
-          {{- range $path, $config := .Values.customApp.customAppConfig }}
+          {{- range $filename, $config := .Values.customApp.customAppConfig.appConfig }}
           - name: customapp-config
-            mountPath: /etc/nginx/conf.d/{{ $path }}
+            mountPath: {.Values.customApp.customAppConfig.mountPath}{{ $filename }}
             readOnly: true
-            subPath: {{ $path }}
-          {{- end }}
+            subPath: {{ $filename }}
           {{- end }}
           {{- if .Values.customApp.extraVolumeMounts }}
             {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}
