@@ -82,7 +82,7 @@ spec:
             mountPath: /etc/localtime
           {{- range $filename, $config := .Values.customApp.customAppConfig.appConfig }}
           - name: customapp-config
-            mountPath: {{ .Values.customApp.mountPath }}{{ $filename }}
+            mountPath: {{ .Values.customApp.customAppConfig.mountPath }}
             readOnly: true
             subPath: {{ $filename }}
           {{- end }}
