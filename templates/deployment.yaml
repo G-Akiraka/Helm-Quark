@@ -80,7 +80,6 @@ spec:
           - name: localtime
             readOnly: true
             mountPath: /etc/localtime
-          {{- if .Values.customApp.configEnabled }}
           {{- range $filename, $config := .Values.customApp.customAppConfig.appConfig }}
           - name: customapp-config
             mountPath: {.Values.customApp.customAppConfig.mountPath}{{ $filename }}
