@@ -80,11 +80,11 @@ spec:
           - name: localtime
             readOnly: true
             mountPath: /etc/localtime
-          {{- range $filename, $config := .Values.customApp.customAppConfig.appConfig }}
+          {{- range $path, $config := .Values.customApp.customAppConfig.appConfig }}
           - name: customapp-config
-            mountPath: {.Values.customApp.customAppConfig.mountPath}{{ $filename }}
+            mountPath: {{ .Values.customApp.customAppConfig.mountPath }}{{ $path }}
             readOnly: true
-            subPath: {{ $filename }}
+            subPath: {{ $path }}
           {{- end }}
           {{- if .Values.customApp.extraVolumeMounts }}
             {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}
