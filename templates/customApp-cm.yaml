@@ -11,7 +11,7 @@ metadata:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
 data:
-{{- range $path, $config := .Values.customApp.customAppConfig }}
+{{- range $path, $config := .Values.customApp.customAppConfig.appConfig }}
   {{ $path }}: |
 {{ $config | indent 4 -}}
 {{- end -}}
