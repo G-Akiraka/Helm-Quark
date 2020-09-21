@@ -82,7 +82,7 @@ spec:
             mountPath: /etc/localtime
           {{- range $filename, $config := .Values.customApp.customAppConfig.appConfig }}
           - name: customapp-config
-            mountPath: /etc/nginx/conf.d/{{ $filename }}
+            mountPath: {{ .Values.customApp.customAppConfig.mountPath }}{{ $filename }}
             readOnly: true
             subPath: {{ $filename }}
           {{- end }}
