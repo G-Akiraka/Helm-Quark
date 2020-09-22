@@ -129,11 +129,11 @@ spec:
           - name: localtime
             readOnly: true
             mountPath: /etc/localtime
-          {{- range $path, $config := .Values.filebeat.filebeatConfig }}
+          {{- range $filename, $config := .Values.filebeat.filebeatConfig }}
           - name: filebeat-config
-            mountPath: /usr/share/filebeat/{{ $path }}
+            mountPath: /usr/share/filebeat/{{ $filename }}
             readOnly: true
-            subPath: {{ $path }}
+            subPath: {{ $filename }}
           {{- end }}
           {{- if .Values.filebeat.extraVolumeMounts }}
              {{- toYaml .Values.filebeat.extraVolumeMounts | nindent 10 }}
