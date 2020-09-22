@@ -172,6 +172,7 @@ customApp:
     mountPath: "/etc/nginx/conf.d/"
     # 文件名称
     subPath: default.conf
+    readOnly: false
     # 内容
     appConfig: {}
       # default.conf: |

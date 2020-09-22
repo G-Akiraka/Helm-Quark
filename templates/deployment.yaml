@@ -83,7 +83,7 @@ spec:
           {{- if .Values.customApp.customAppConfig.appConfig }}
           - name: customapp-config
             mountPath: {{ .Values.customApp.customAppConfig.mountPath }}{{ .Values.customApp.customAppConfig.subPath }}
-            readOnly: true
+            readOnly: {{ .Values.customApp.customAppConfig.readOnly }}
             subPath: {{ .Values.customApp.customAppConfig.subPath }}
           {{- end }}
           {{- if .Values.customApp.extraVolumeMounts }}
