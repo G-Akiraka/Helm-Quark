@@ -144,7 +144,7 @@ spec:
       - name: localtime
         hostPath:
           path: /etc/localtime
-      {{- if .Values.customApp.configEnabled }}
+      {{- if .Values.customApp.customAppConfig.appConfig }}
       - name: customapp-config
         configMap:
           defaultMode: 0600
