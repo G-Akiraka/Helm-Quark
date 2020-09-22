@@ -84,7 +84,7 @@ spec:
           - name: customapp-config
             mountPath: {{ .Values.customApp.customAppConfig.mountPath }}
             readOnly: true
-            subPath: {{ .Values.customApp.customAppConfig.mountPath }}
+            subPath: {{ .Values.customApp.customAppConfig.subPath }}
           {{- end }}
           {{- if .Values.customApp.extraVolumeMounts }}
             {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}

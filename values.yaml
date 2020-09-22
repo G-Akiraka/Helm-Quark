@@ -169,6 +169,7 @@ customApp:
   # 自定义 filebeat.yaml 配置
   customAppConfig:
     mountPath: "/etc/nginx/conf.d/"
+    subPath: default.conf
     appConfig:
       default.conf: |
         server {
