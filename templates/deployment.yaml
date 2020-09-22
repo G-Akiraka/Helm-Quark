@@ -82,9 +82,9 @@ spec:
             mountPath: /etc/localtime
           {{- if .Values.customApp.customAppConfig.appConfig }}
           - name: customapp-config
-            mountPath: {{ .Values.customApp.readinessProbe.timeoutSeconds }}
+            mountPath: {{ .Values.customApp.customAppConfig.mountPath }}
             readOnly: true
-            subPath: {{ .Values.customApp.readinessProbe.timeoutSeconds }}
+            subPath: {{ .Values.customApp.customAppConfig.mountPath }}
           {{- end }}
           {{- if .Values.customApp.extraVolumeMounts }}
             {{- toYaml .Values.customApp.extraVolumeMounts | nindent 10 }}
