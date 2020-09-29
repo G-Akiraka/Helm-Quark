@@ -144,14 +144,18 @@ spec:
       - name: localtime
         hostPath:
           path: /etc/localtime
+      {{- if .Values.customApp.customAppConfig.appConfig }}
       - name: customapp-config
         configMap:
           defaultMode: 0755
           name: {{ template "quark.fullname" . }}-customapp-config
+      {{- end }}
+      {{- if .Values.filebeat.enabled }}
       - name: filebeat-config
         configMap:
           defaultMode: 0600
           name: {{ template "quark.fullname" . }}-filebeat-config
+      {{- end }}
       {{- if .Values.shareConfig.extraVolumes }}
         {{- toYaml .Values.shareConfig.extraVolumes | nindent 6 }}
       {{- end }}
