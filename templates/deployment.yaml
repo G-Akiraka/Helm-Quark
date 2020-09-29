@@ -149,7 +149,7 @@ spec:
         configMap:
           defaultMode: 0755
           name: {{ template "quark.fullname" . }}-customapp-config
-      {{- if .Values.filebeat.enabled }}
+      {{- if .Values.filebeat.filebeatConfig }}
       - name: filebeat-config
         configMap:
           defaultMode: 0600

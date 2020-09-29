@@ -211,25 +211,25 @@ filebeat:
     tag: 7.6.1
     pullPolicy: IfNotPresent
   # 自定义 filebeat.yaml 配置
-  filebeatConfig:
-    filebeat.yml: |
-      filebeat.inputs:
-      - type: log
-        paths:
-          - /filebeat/logs/catalina.out
-        fields:
-          app: www
-          type: tomcat-catalina
-        # multiline:
-        #   pattern: '^\['
-        #   negate: true
-        #   match: after
-      output.redis:
-        hosts: ["redis-master.manager.svc.cluster.local"]
-        password: "passw"
-        key: "tomcat"
-        db: 2
-        timeout: 5
+  filebeatConfig: {}
+    # filebeat.yml: |
+    #   filebeat.inputs:
+    #   - type: log
+    #     paths:
+    #       - /filebeat/logs/catalina.out
+    #     fields:
+    #       app: www
+    #       type: tomcat-catalina
+    #     # multiline:
+    #     #   pattern: '^\['
+    #     #   negate: true
+    #     #   match: after
+    #   output.redis:
+    #     hosts: ["redis-master.manager.svc.cluster.local"]
+    #     password: "passw"
+    #     key: "tomcat"
+    #     db: 2
+    #     timeout: 5
   # 额外环境变量
   extraEnvs: []
     # - name: 'ELASTICSEARCH_USERNAME'
