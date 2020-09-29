@@ -149,12 +149,10 @@ spec:
         configMap:
           defaultMode: 0755
           name: {{ template "quark.fullname" . }}-customapp-config
-      {{- if .Values.filebeat.filebeatConfig }}
       - name: filebeat-config
         configMap:
           defaultMode: 0600
           name: {{ template "quark.fullname" . }}-filebeat-config
-      {{- end }}
       {{- end }}
       {{- if .Values.shareConfig.extraVolumes }}
         {{- toYaml .Values.shareConfig.extraVolumes | nindent 6 }}
