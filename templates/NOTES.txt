@@ -12,7 +12,10 @@
     全路径：http://{{ $host.name }}{{ $host.path }}
   {{- end }}
 {{- end }}
+
 Server 配置信息:
 网络类型: {{ .Values.customApp.service.type }}
 容器端口: {{ .Values.customApp.service.port }}
+{{- if .Values.customApp.service.NodePort }}
 对外端口: {{ .Values.customApp.service.NodePort }}
+{{- end }}
