@@ -13,7 +13,7 @@
   {{- end }}
 {{- end }}
 
-Server 配置信息:
+3. Server 配置信息:
 网络类型: {{ .Values.customApp.service.type }}
 容器端口: {{ .Values.customApp.service.port }}
 {{- if .Values.customApp.service.NodePort }}
