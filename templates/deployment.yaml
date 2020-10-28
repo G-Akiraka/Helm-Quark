@@ -57,7 +57,7 @@ spec:
             - name: TZ
               value: Asia/Shanghai
             - name: DUBBO
-              value: asd
+              value: "20880"
           {{- if .Values.customApp.containerEnv }}
           {{- toYaml .Values.customApp.containerEnv | nindent 12 }}
           {{- end }}
