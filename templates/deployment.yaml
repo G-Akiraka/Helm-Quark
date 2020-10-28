@@ -48,11 +48,15 @@ spec:
           {{- range $index, $port := .Values.customApp.extraPorts }}
           - name: {{ $port.name }}
             protocol: TCP
-            containerPort: {{ $port.port }}        
+            containerPort: {{ $port.port }}
           {{- end }}
           env:
             - name: TZ
               value: Asia/Shanghai
+            {{- if .Values.customApp.dubboPortEnv }}
+            - name: DUBBO_PORT
+              value: {{ .Values.customApp.dubboPort.port }}
+            {{- end }}
           {{- if .Values.customApp.containerEnv }}
           {{- toYaml .Values.customApp.containerEnv | nindent 12 }}
           {{- end }}
@@ -113,11 +117,6 @@ spec:
           env:
           - name: TZ
             value: Asia/Shanghai
-          {{- if .Values.customApp.dubboPortEnv.enabled }}
-          - name: DUBBO_PORT
-            value: {{ .Values.customApp.dubboPortEnv.port }}
-          {{- end }}
-          value: Asia/Shanghai
           - name: POD_NAMESPACE
             valueFrom:
               fieldRef:
