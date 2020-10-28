@@ -119,8 +119,9 @@ customApp:
     #   port: 2323
     #   nodePort: 32323
   # 提供 Dubbo 服务端口
-  dubboPort:
-    enabled: false
+  dubboSet:
+    dubboEnv: false
+    dubboPort: false
     port: 20880
   # 就绪检查
   readinessProbe:

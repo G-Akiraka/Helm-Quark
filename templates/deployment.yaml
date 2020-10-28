@@ -43,10 +43,10 @@ spec:
           - name: http
             protocol: TCP
             containerPort: {{ .Values.customApp.service.port }}
-          {{- if .Values.customApp.dubboPort.enabled }}
+          {{- if .Values.customApp.dubboSet.dubboPort }}
           - name: dubbo
             protocol: TCP
-            containerPort: {{ .Values.customApp.dubboPort.port }}
+            containerPort: {{ .Values.customApp.dubboSet.port }}
           {{- end }}
           {{- range $index, $port := .Values.customApp.extraPorts }}
           - name: {{ $port.name }}
@@ -56,6 +56,10 @@ spec:
           env:
           - name: TZ
             value: Asia/Shanghai
+          {{- if .Values.customApp.dubboSet.dubboEnv }}
+          - name: DUBBO_PORT
+            value: "{{ .Values.customApp.dubboSet.port }}"
+          {{- end }}
           {{- if .Values.customApp.containerEnv }}
           {{- toYaml .Values.customApp.containerEnv | nindent 10 }}
           {{- end }}

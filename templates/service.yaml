@@ -20,11 +20,11 @@ spec:
       port: {{ .Values.customApp.service.port }}
       targetPort: {{ .Values.customApp.service.port }}
       nodePort: {{ .Values.customApp.service.nodePort }}
-    {{- if .Values.customApp.dubboPort.enabled }}
+      {{- if .Values.customApp.dubboSet.dubboPort }}
     - name: dubbo
-      port: {{ .Values.customApp.dubboPort.port }}
-      nodePort: {{ .Values.customApp.dubboPort.port }}
-      targetPort: {{ .Values.customApp.dubboPort.port }}
+      port: {{ .Values.customApp.dubboSet.port }}
+      nodePort: {{ .Values.customApp.dubboSet.port }}
+      targetPort: {{ .Values.customApp.dubboSet.port }}
     {{- end }}
     {{- range $index, $port := .Values.customApp.extraPorts }}
     - name: {{ $port.name }}
