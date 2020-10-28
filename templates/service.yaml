@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "quark.labels" . | nindent 4 }}
 spec:
-  {{- if .Values.customApp.dubboPort.enabled }}
+  {{- if .Values.customApp.dubboSet.dubboPort }}
   type: NodePort
   {{- else }}
   type: {{ .Values.customApp.service.type }}
