@@ -115,7 +115,7 @@ spec:
             value: Asia/Shanghai
           {{- if .Values.customApp.dubboPortEnv.enabled }}
           - name: DUBBO_PORT
-            value: {{ .Values.customApp.dubboPort.port }}
+            value: {{ .Values.customApp.dubboPortEnv.port }}
           {{- end }}
           value: Asia/Shanghai
           - name: POD_NAMESPACE
