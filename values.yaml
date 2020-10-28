@@ -119,7 +119,7 @@ customApp:
     enabled: false
     port: 20880
   # 提供 Dubbo 环境变量
-  dubboPortEnv: false
+  dubboPortEnv: true
   # 就绪检查
   readinessProbe:
     enabled: false
