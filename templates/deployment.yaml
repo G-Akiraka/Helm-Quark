@@ -113,7 +113,7 @@ spec:
           env:
           - name: TZ
             value: Asia/Shanghai
-          {{- if .Values.customApp.dubboPortEnv }}
+          {{- if .Values.customApp.dubboPortEnv.enabled }}
           - name: DUBBO_PORT
             value: {{ .Values.customApp.dubboPort.port }}
           {{- end }}
