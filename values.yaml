@@ -109,6 +109,10 @@ customApp:
     type: ClusterIP
     port: 8080
     # externalIPs: ""
+  # kuboard 分层标签
+  kuboardLabel:
+    enabled: false
+    labels: web
   # 额外端口
   extraPorts: []
     # - name: port-1

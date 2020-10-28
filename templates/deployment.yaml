@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: {{ include "quark.fullname" . }}
   labels:
+    {{- if .Values.customApp.kuboardLabel.enabled }}
+    k8s.kuboard.cn/layer: {{ .Values.customApp.kuboardLabel.labels }}
+    {{- end }}
     {{- include "quark.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.shareConfig.replicaCount }}
