@@ -113,6 +113,11 @@ spec:
           env:
           - name: TZ
             value: Asia/Shanghai
+          {{- if .Values.customApp.dubboPortEnv.enabled }}
+          - name: DUBBO_PORT
+            value: {{ .Values.customApp.dubboPort.port }}
+          {{- end }}
+          value: Asia/Shanghai
           - name: POD_NAMESPACE
             valueFrom:
               fieldRef:

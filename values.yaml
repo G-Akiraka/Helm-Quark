@@ -114,17 +114,20 @@ customApp:
     # - name: port-1
     #   port: 2323
     #   nodePort: 32323
-  # 提供注册中心不同端口号
+  # 提供 Dubbo 服务端口
   dubboPort:
     enabled: false
     port: 20880
+  # 提供 Dubbo 环境变量
+  dubboPortEnv:
+    enabled: false
   # 就绪检查
   readinessProbe:
     enabled: false
-    # 不健康阈值
+    # 不健康阈值,允许失败次数
     failureThreshold: 3
     # 延迟探测时间（秒）
-    initialDelaySeconds: 40
+    initialDelaySeconds: 30
     # 执行探测频率（秒）
     periodSeconds: 10
     # 超时时间（秒）
@@ -132,8 +135,8 @@ customApp:
   # 存活检查
   livenessProbe:
     enabled: false
-    # 不健康阈值
-    failureThreshold: 6
+    # 不健康阈值,允许失败次数
+    failureThreshold: 3
     # 延迟探测时间（秒）
     initialDelaySeconds: 30
     # 执行探测频率（秒）
