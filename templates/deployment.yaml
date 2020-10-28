@@ -4,7 +4,7 @@ metadata:
   name: {{ include "quark.fullname" . }}
   labels:
     {{- if .Values.customApp.kuboardLabel.enabled }}
-    k8s.kuboard.cn/layer: {{ .Values.customApp.kuboardLabel.labels }}
+    k8s.kuboard.cn/layer: {{ .Values.customApp.kuboardLabel.layer }}
     {{- end }}
     {{- include "quark.labels" . | nindent 4 }}
 spec:
