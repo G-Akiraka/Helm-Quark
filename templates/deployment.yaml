@@ -56,10 +56,6 @@ spec:
           env:
           - name: TZ
             value: Asia/Shanghai
-          {{- if .Values.customApp.dubboPortEnv }}
-          - name: DUBBO_PORT
-            value: {{ .Values.customApp.dubboPort.port }}
-          {{- end }}
           {{- if .Values.customApp.containerEnv }}
           {{- toYaml .Values.customApp.containerEnv | nindent 12 }}
           {{- end }}
