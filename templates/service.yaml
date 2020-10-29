@@ -19,8 +19,7 @@ spec:
       protocol: TCP
       port: {{ .Values.customApp.service.port }}
       targetPort: {{ .Values.customApp.service.port }}
-      {{- if .Values.customApp.service.type | default "NodePort" | quote }}
-      {{- else }}
+      {{- if eq .Values.customApp.service.type "NodePort" }}
       nodePort: {{ .Values.customApp.service.nodePort }}
       {{- end }}
     {{- if .Values.customApp.dubboSet.dubboPort }}
