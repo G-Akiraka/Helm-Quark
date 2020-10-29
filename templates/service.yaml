@@ -19,7 +19,7 @@ spec:
       protocol: TCP
       port: {{ .Values.customApp.service.port }}
       targetPort: {{ .Values.customApp.service.port }}
-      {{- if .Values.customApp.service.type | default "ClusterIP" | quote }}
+      {{- if .Values.customApp.service.type | default "NodePort" | quote }}
       {{- else }}
       nodePort: {{ .Values.customApp.service.nodePort }}
       {{- end }}
