@@ -69,6 +69,7 @@ ingress:
   # extraHosts:
   # - name: tomcat.akiraka.net
   #   path: /
+  extraTlsx: false
   tls: false
   # extraTls:
   # - hosts:

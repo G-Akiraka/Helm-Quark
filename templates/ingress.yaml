@@ -41,6 +41,13 @@ spec:
             servicePort: http
             serviceName: {{ template "quark.fullname" $ }}
     {{- end }}
+  {{- if .Values.ingress.extraTlsx }}
+  tls:
+    - hosts:
+      {{- range .Values.ingress.extraHosts}}
+      - {{ .name }}
+      {{- end }}
+  {{- end }}
   {{- if or .Values.ingress.tls .Values.ingress.extraTls }}
   tls:
     {{- if .Values.ingress.tls }}
