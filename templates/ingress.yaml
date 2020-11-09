@@ -44,9 +44,11 @@ spec:
   {{- if .Values.ingress.extraTlsx }}
   tls:
     - hosts:
+      {{ .Values.ingress.hostname }}
       {{- range .Values.ingress.extraHosts}}
       - {{ .name }}
       {{- end }}
+      secretName: {{ .Values.ingress.secretName }}
   {{- end }}
   {{- if or .Values.ingress.tls .Values.ingress.extraTls }}
   tls:
