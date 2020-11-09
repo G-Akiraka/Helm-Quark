@@ -50,15 +50,4 @@ spec:
       {{- end }}
       secretName: {{ .Values.ingress.secretName }}
   {{- end }}
-  {{- if or .Values.ingress.tls .Values.ingress.extraTls }}
-  tls:
-    {{- if .Values.ingress.tls }}
-    - hosts:
-      - {{ .Values.ingress.hostname }}
-      secretName: {{ printf "%s-tls" .Values.ingress.hostname }}
-    {{- end }}
-    {{- if .Values.ingress.extraTls }}
-    {{- toYaml .Values.ingress.extraTls | nindent 4 }}
-    {{- end }}
-  {{- end }}
 {{- end }}
