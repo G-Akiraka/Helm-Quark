@@ -145,10 +145,10 @@ customApp:
   # 容器生命周期事件处理
   postStart:
     enabled: false
-    # command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+    command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
   preStop:
     enabled: false
-    # command: ["/bin/sh", "-c", "echo Hello from the preStop handler > /usr/share/message"]
+    command: ["/bin/sh","-c","kill -15 1; do sleep 1; done"]
   # 将日志目录共享给 Filebeat 采集日志
   extraVolumeMounts: {}
     # - name: akiraka-logs
