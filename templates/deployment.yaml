@@ -78,7 +78,18 @@ spec:
             initialDelaySeconds: {{ .Values.customApp.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.customApp.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.customApp.readinessProbe.timeoutSeconds }}
-          {{- end }} 
+          {{- end }}
+          lifecycle:
+            {{- if .Values.customApp.postStart.enabled }}
+            postStart:
+              exec:
+                command: {{ .Values.customApp.postStart.command }}
+            {{- end }}
+            {{- if .Values.customApp.preStop.enabled }}
+            preStop:
+              exec:
+                command: {{ .Values.customApp.preStop.command }}
+            {{- end }}
           {{- if .Values.customApp.resourcesSwitch }}
           resources:
             {{- toYaml .Values.customApp.resources | nindent 12 }}

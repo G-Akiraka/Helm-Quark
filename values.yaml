@@ -142,6 +142,13 @@ customApp:
     periodSeconds: 60
     # 超时时间（秒）
     timeoutSeconds: 5
+  # 容器生命周期事件处理
+  postStart:
+    enabled: false
+    # command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+  preStop:
+    enabled: false
+    # command: ["/bin/sh", "-c", "echo Hello from the preStop handler > /usr/share/message"]
   # 将日志目录共享给 Filebeat 采集日志
   extraVolumeMounts: {}
     # - name: akiraka-logs
