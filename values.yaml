@@ -41,11 +41,11 @@ shareConfig:
 ingress:
   enabled: true
   certManager: false
-  # 访问域名
+  # 默认访问域名
   hostname: tomcat.akiraka.net
-  # 访问路径
+  # 默认访问路径
   path: /
-  # 额外访问路径
+  # 额外访问路径,用于默认路径是其他路径时,但又需要一个其他路径,那么利用这个额外路径解决
   extraPath: []
     # path: /
   # 重写开启 默认 /$1
@@ -69,17 +69,10 @@ ingress:
   # extraHosts:
   # - name: tomcat.akiraka.net
   #   path: /
+  # 当 TLS 为 True 时，创建域名都会创建 HTTPS
   httpsTls: false
+  # 证书名称
   secretName: akiraka.net-tls
-  tls: false
-  # extraTls:
-  # - hosts:
-  #   - tomcat.akiraka.net
-  #   secretName: tomcat.akiraka.net
-  secrets: []
-  # - name: tomcat.akiraka.net
-  #   key:
-  #   certificate:
 
 ################################
 ####### 自动绑定 pvc 与 pv #######
@@ -122,7 +115,9 @@ customApp:
     #   nodePort: 32323
   # 提供 Dubbo 服务端口
   dubboSet:
+    # 为指定 Dubbo 环境变量端口,让服务获取环境变量来使用指定端口
     dubboEnv: false
+    # 当为 True 时,service将会从ClusterIP改为NodePort模式,根实际使用场景决定
     dubboPort: false
     port: 20880
   # 就绪检查
